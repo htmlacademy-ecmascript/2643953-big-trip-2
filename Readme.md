@@ -1,7 +1,11 @@
 # Проект «Большое путешествие»
 
 * Студент: [Инесса Пугина](https://up.htmlacademy.ru/ecmascript-individual/2/user/2643953).
+ module1-task2
 * Наставник: [Виктория Никитина](https://htmlacademy.ru/profile/id1217273).
+
+* Наставник: [Виктория Никитина].
+ master
 
 ---
 
