@@ -156,7 +156,7 @@ const createEditingFormTemplate = () => `
       </form>
       `;
 
-export default class EditingFormView {
+export default class FormView {
   getTemplate() {
     return createEditingFormTemplate();
   }

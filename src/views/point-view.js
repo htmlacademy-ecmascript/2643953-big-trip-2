@@ -1,6 +1,6 @@
 import { createElement } from '../render.js';
-
-const createRoutePointTemplate = () => `
+//import { pointsData } from '../mock/points.js';
+const createTemplate = ({point}) => `
   <li class="trip-events__item">
     <div class="event">
       <time class="event__date" datetime="2019-03-18">MAR 18</time>
@@ -17,7 +17,7 @@ const createRoutePointTemplate = () => `
         <p class="event__duration">30M</p>
       </div>
       <p class="event__price">
-        &euro;&nbsp;<span class="event__price-value">20</span>
+        &euro;&nbsp;<span class="event__price-value">${point.basePrice}</span>
       </p>
       <h4 class="visually-hidden">Offers:</h4>
       <ul class="event__selected-offers">
@@ -40,9 +40,16 @@ const createRoutePointTemplate = () => `
   </li>
  `;
 
-export default class RoutePointView {
+export default class PointView {
+  #point = null;
+  constructor({ point }){
+    this.#point = point;
+  }
+
   getTemplate() {
-    return createRoutePointTemplate();
+    return createTemplate({
+      point: this.#point
+    });
   }
 
   getElement() {

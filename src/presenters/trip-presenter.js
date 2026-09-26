@@ -1,32 +1,52 @@
 import { render } from '../render.js';
-import RoutePointView from '../views/route-point-view.js';
-import EditingFormView from '../views/editing-form-view.js';
-import FilterView from '../views/filter-view.js';
-import SortingView from '../views/sorting-view.js';
+
+
 import ListView from '../views/list-view.js';
+import PointsModel from '../models/points-model.js';
+import OffersModel from '../models/offers-model.js';
+import DestinationsModel from '../models/destinations-model.js';
+import FilterPresenter from './filter-presenter.js';
+import SortPresenter from './sort-presenter.js';
+import ListPresenter from './list-presenter.js';
 
 export default class TripPresenter {
+  #pointsModel = null;
+  #offersModel = null;
+  #destinationsModel = null;
+  #filterPresenter = null;
+  #sortPresenter = null;
+  #listPresenter = null;
+
   constructor({ tripContainer, filterContainer }) {
     this.tripContainer = tripContainer;
     this.filterContainer = filterContainer;
   }
 
   init() {
-    const filterComponent = new FilterView();
-    render(filterComponent, this.filterContainer);
+  this.#pointsModel = new PointsModel();
+  this.#pointsModel.init();
 
-    const sortComponent = new SortingView();
-    render(sortComponent, this.tripContainer);
+  this.#offersModel = new OffersModel();
+  this.#offersModel.init();
 
-    const listComponent = new ListView();
-    render(listComponent, this.tripContainer);
+  this.#destinationsModel = new DestinationsModel();
+  this.#destinationsModel.init();
 
-    const editingFormComponent = new EditingFormView();
-    render(editingFormComponent, listComponent.getElement());
+    this.#filterPresenter = new FilterPresenter();
+    this.#filterPresenter.init(this.filterContainer);
 
-    for (let i = 0; i < 3; i++) {
-      render(new RoutePointView(), listComponent.getElement());
-    }
+    this.#sortPresenter = new SortPresenter();
+    this.#sortPresenter.init(this.tripContainer);
+
+    this.#listPresenter = new ListPresenter({
+      pointsModel: this.#pointsModel,
+      destinationModel: this.#destinationsModel,
+      offersModel: this.#offersModel
+    });
+
+    this.#listPresenter.init(this.tripContainer);
+
+
   }
 
 }
