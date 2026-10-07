@@ -13,7 +13,7 @@ constructor({pointsModel, destinationModel, offersModel}){
   this.#pointsModel = pointsModel;
   this.#destinationsModel = destinationModel;
   this.#offersModel = offersModel;
-};
+}
 
   init(containerElement) {
     this.#listView = new ListView();
@@ -25,14 +25,15 @@ constructor({pointsModel, destinationModel, offersModel}){
     // for (let i = 0; i < 3; i++) {
     //   render(new RoutePointView(), listComponent.getElement());
     // }
-this.#pointsModel.points.forEach((point)=>{
+this.#pointsModel.points.forEach((point, index)=>{
   const pointPresenter = new PointPresenter({
       point,
       pointsModel: this.#pointsModel,
-      destinationsModel: this.#destinationsModel,
-      offersModel: this.#offersModel
+      destinationModel: this.#destinationsModel,
+      offersModel: this.#offersModel,
+      isOpened: index === 0
     });
-    pointPresenter.init(this.#listView.getElement());
+    pointPresenter.init(this.#listView.getElement())
 })
 
   }
