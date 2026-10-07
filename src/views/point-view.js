@@ -1,13 +1,13 @@
 import { createElement } from '../render.js';
-
-const createRoutePointTemplate = () => `
+//import { pointsData } from '../mock/points.js';
+const createTemplate = ({point, destinationName}) => `
   <li class="trip-events__item">
     <div class="event">
       <time class="event__date" datetime="2019-03-18">MAR 18</time>
       <div class="event__type">
-        <img class="event__type-icon" width="42" height="42" src="img/icons/taxi.png" alt="Event type icon">
+        <img class="event__type-icon" width="42" height="42" src="img/icons/${point.type}.png" alt="Event type icon">
       </div>
-      <h3 class="event__title">Taxi Amsterdam</h3>
+      <h3 class="event__title">${point.type} ${destinationName}</h3>
       <div class="event__schedule">
         <p class="event__time">
           <time class="event__start-time" datetime="2019-03-18T10:30">10:30</time>
@@ -17,12 +17,12 @@ const createRoutePointTemplate = () => `
         <p class="event__duration">30M</p>
       </div>
       <p class="event__price">
-        &euro;&nbsp;<span class="event__price-value">20</span>
+        &euro;&nbsp;<span class="event__price-value">${point.basePrice}</span>
       </p>
       <h4 class="visually-hidden">Offers:</h4>
       <ul class="event__selected-offers">
         <li class="event__offer">
-          <span class="event__offer-title">Order Uber</span>
+          <span class="event__offer-title">$Order Uber</span>
           &plus;&euro;&nbsp;
           <span class="event__offer-price">20</span>
         </li>
@@ -40,9 +40,20 @@ const createRoutePointTemplate = () => `
   </li>
  `;
 
-export default class RoutePointView {
+export default class PointView {
+  #point = null;
+  #destinationName = null;
+
+  constructor({ point, destinationName }){
+    this.#point = point;
+    this.#destinationName = destinationName;
+  }
+
   getTemplate() {
-    return createRoutePointTemplate();
+    return createTemplate({
+      point: this.#point,
+      destinationName: this.#destinationName
+    });
   }
 
   getElement() {
